@@ -1447,25 +1447,6 @@ yum -y update
 
 # END fix for 'xccdf_org.ssgproject.content_rule_security_patches_up_to_date'
 
-###############################################################################
-# BEGIN fix (69 / 410) for 'xccdf_org.ssgproject.content_rule_enable_authselect'
-###############################################################################
-(>&2 echo "Remediating rule 69/410: 'xccdf_org.ssgproject.content_rule_enable_authselect'")
-
-var_authselect_profile='sssd'
-
-
-authselect select "$var_authselect_profile"
-
-if test "$?" -ne 0; then
-    if rpm --quiet --verify pam; then
-        authselect select --force "$var_authselect_profile"
-    else
-	echo "Files in the 'pam' package have been altered, so the authselect configuration won't be forced" >&2
-    fi
-fi
-
-# END fix for 'xccdf_org.ssgproject.content_rule_enable_authselect'
 
 ###############################################################################
 # BEGIN fix (70 / 410) for 'xccdf_org.ssgproject.content_rule_banner_etc_issue'
